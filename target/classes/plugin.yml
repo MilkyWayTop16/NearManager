@@ -1,0 +1,44 @@
+name: NearManager
+version: 1.0
+main: org.gw.nearmanager.NearManager
+api-version: 1.16
+depend: [LuckPerms]
+softdepend: [Essentials, CMI]
+commands:
+  near:
+    description: Показывает игроков поблизости
+    usage: /<command> [radius]
+  nm:
+    description: Управление плагином NearManager
+    usage: /<command> [reload|bossbar <player>]
+permissions:
+  nearmanager.near:
+    description: Доступ к команде /near
+    default: op
+  nearmanager.reload:
+    description: Доступ к команде /nm reload
+    default: op
+  nearmanager.bossbar:
+    description: Доступ к команде /nm bossbar
+    default: op
+  nearmanager.near-radius.100:
+    description: Доступ к радиусу в 100 блоков
+    default: false
+  nearmanager.near.custom-radius:
+    description: Доступ к ручному вводу радиуса для команды /near
+    default: op
+  nearmanager.near-buttons.open-inventory:
+    description: Доступ к кнопке открытия инвентаря в списке игроков /near
+    default: op
+  nearmanager.near-buttons.teleport:
+    description: Доступ к кнопке телепортации в списке игроков /near
+    default: op
+  nearmanager.near-buttons.bossbar:
+    description: Доступ к кнопке активации боссбара в списке игроков /near
+    default: op
+  nearmanager.near.bypass-cooldown:
+    description: Обход задержки для команды /near
+    default: op
+  nearmanager.near.bypass-vanish:
+    description: Позволяет видеть игроков в невидимости в /near
+    default: op
