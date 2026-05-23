@@ -287,6 +287,16 @@ actions:
       - "[message] <gradient:#FFFF00:#ffa500>◆ NearManager</gradient> &f┃ Плагин &#FFFF00успешно &fперезагружен за &#FFFF00{time} мс."
       - "[sound] ENTITY_PLAYER_LEVELUP 1 1"
 
+  update:
+    available:
+      - "[message] &r "
+      - "[message] &#ffff00▶ &fИтак, хочу сказать, что у меня &#ffff00появилась новая &fверсия &#ffff00{latest-version}&f, а текущая — &#ffff00v{current-version}&f, так что советую обновить меня)"
+      - "[message] &r "
+      - "[message] &#ffff00◆ &fСкачать новую версию можно тут: &#ffff00{download-link}"
+      - "[message] &r "
+      - "[message-console] &#ffff00◆ NearManager &f| Доступна новая версия &#ffff00{latest-version}&f, а текущая — &#ffff00v{current-version}&f, так что можно обновить тут: &#ffff00{download-link}"
+      - "[sound] ENTITY_PLAYER_LEVELUP 1 1"
+
   help-for-admins:
     - "[message] "
     - "[message] &#FFFF00▶ &fКоманды плагина:"
