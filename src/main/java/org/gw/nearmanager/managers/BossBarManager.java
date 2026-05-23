@@ -27,9 +27,11 @@ public final class BossBarManager {
             UUID viewerId,
             String baseText,
             double viewerX,
+            double viewerY,
             double viewerZ,
             float viewerYaw,
             double targetX,
+            double targetY,
             double targetZ,
             String targetName,
             long startTime,
@@ -69,18 +71,18 @@ public final class BossBarManager {
 
                     Player viewer = Bukkit.getPlayer(viewerId);
                     if (viewer == null || !viewer.isOnline()) {
-                        snapshots.add(new BossBarTaskSnapshot(viewerId, null, 0.0, 0.0, 0.0f, 0.0, 0.0, "", data.startTime(), data.nodist(), data.notime(), data.bossBar(), 0));
+                        snapshots.add(new BossBarTaskSnapshot(viewerId, null, 0.0, 0.0, 0.0, 0.0f, 0.0, 0.0, 0.0, "", data.startTime(), data.nodist(), data.notime(), data.bossBar(), 0));
                         continue;
                     }
 
                     Player target = Bukkit.getPlayer(data.targetId());
                     if (target == null || !target.isOnline()) {
-                        snapshots.add(new BossBarTaskSnapshot(viewerId, null, 0.0, 0.0, 0.0f, 0.0, 0.0, "", data.startTime(), data.nodist(), data.notime(), data.bossBar(), 1));
+                        snapshots.add(new BossBarTaskSnapshot(viewerId, null, 0.0, 0.0, 0.0, 0.0f, 0.0, 0.0, 0.0, "", data.startTime(), data.nodist(), data.notime(), data.bossBar(), 1));
                         continue;
                     }
 
                     if (!viewer.getWorld().equals(target.getWorld())) {
-                        snapshots.add(new BossBarTaskSnapshot(viewerId, null, 0.0, 0.0, 0.0f, 0.0, 0.0, target.getName(), data.startTime(), data.nodist(), data.notime(), data.bossBar(), 2));
+                        snapshots.add(new BossBarTaskSnapshot(viewerId, null, 0.0, 0.0, 0.0, 0.0f, 0.0, 0.0, 0.0, target.getName(), data.startTime(), data.nodist(), data.notime(), data.bossBar(), 2));
                         continue;
                     }
 
@@ -89,8 +91,8 @@ public final class BossBarManager {
                     Location tLoc = target.getLocation();
 
                     snapshots.add(new BossBarTaskSnapshot(
-                            viewerId, baseText, vLoc.getX(), vLoc.getZ(), vLoc.getYaw(),
-                            tLoc.getX(), tLoc.getZ(), target.getName(),
+                            viewerId, baseText, vLoc.getX(), vLoc.getY(), vLoc.getZ(), vLoc.getYaw(),
+                            tLoc.getX(), tLoc.getY(), tLoc.getZ(), target.getName(),
                             data.startTime(), data.nodist(), data.notime(), data.bossBar(), 3
                     ));
                 }
@@ -138,8 +140,9 @@ public final class BossBarManager {
             }
 
             double dx = snap.viewerX() - snap.targetX();
+            double dy = snap.viewerY() - snap.targetY();
             double dz = snap.viewerZ() - snap.targetZ();
-            double distance = Math.sqrt(dx * dx + dz * dz);
+            double distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
             String direction = configManager.getDirection(DirectionUtils.getDirectionKey(
                     snap.viewerX(), snap.viewerZ(), snap.viewerYaw(),
@@ -300,6 +303,12 @@ public final class BossBarManager {
         if (configManager.isBossBarEnabled()) {
             startGlobalUpdateTask();
         }
+    }
+
+    public UUID getTargetId(Player viewer) {
+        if (viewer == null) return null;
+        BossBarData data = activeBossBars.get(viewer.getUniqueId());
+        return data != null ? data.targetId() : null;
     }
 
     private float calculateProgress(double distance, long elapsed, boolean nodist, boolean notime, boolean isTimeMode) {

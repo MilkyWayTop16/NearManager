@@ -2,6 +2,7 @@ package org.gw.nearmanager.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.MetadataValue;
 import org.gw.nearmanager.NearManager;
@@ -43,9 +44,12 @@ public final class NearPlayerManager {
 
         List<PlayerDistance> result = new ArrayList<>();
 
+        Location viewerLoc = viewer.getLocation();
+        Location targetLoc = new Location(null, 0, 0, 0);
+        long radiusSq = (long) radius * radius;
+
         for (Player target : Bukkit.getOnlinePlayers()) {
             if (target.getUniqueId().equals(viewer.getUniqueId())) continue;
-            if (!target.getWorld().equals(viewer.getWorld())) continue;
             if (target.getGameMode() == GameMode.SPECTATOR) continue;
             if (target.hasMetadata("NPC")) continue;
 
@@ -59,8 +63,11 @@ public final class NearPlayerManager {
                 continue;
             }
 
-            double distSq = viewer.getLocation().distanceSquared(target.getLocation());
-            if (distSq <= (long) radius * radius) {
+            target.getLocation(targetLoc);
+            if (!targetLoc.getWorld().equals(viewerLoc.getWorld())) continue;
+
+            double distSq = viewerLoc.distanceSquared(targetLoc);
+            if (distSq <= radiusSq) {
                 result.add(new PlayerDistance(target.getUniqueId(), target.getName(), Math.sqrt(distSq)));
             }
         }

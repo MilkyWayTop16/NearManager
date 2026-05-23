@@ -109,6 +109,14 @@ public final class NmCommand implements CommandExecutor {
                 return true;
             }
 
+            if (sender instanceof Player viewer) {
+                if (bossBarManager.hasActiveBossBar(viewer) && target.getUniqueId().equals(bossBarManager.getTargetId(viewer))) {
+                    bossBarManager.removeBossBar(viewer);
+                    configManager.executeActions(viewer, "bossbar.turned-off", Map.of("player", target.getName()));
+                    return true;
+                }
+            }
+
             boolean nodist = false;
             boolean notime = false;
             for (int i = 2; i < args.length; i++) {
