@@ -290,7 +290,7 @@ actions:
 
   plugin:
     reload:
-      - "[message] <gradient:#FFFF00:#ffa500>◆ NearManager</gradient> &f┃ Плагин &#FFFF00успешно &fперезагружен за &#FFFF00{time} мс."
+      - "[message] <gradient:#FFFF00:#ffa500>◆ NearManager</gradient> &f| Плагин &#FFFF00успешно &fперезагружен за &#FFFF00{time} мс."
       - "[sound] ENTITY_PLAYER_LEVELUP 1 1"
 
   update:
