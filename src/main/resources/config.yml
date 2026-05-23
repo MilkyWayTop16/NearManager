@@ -1,0 +1,298 @@
+#
+#               █▄░█ █▀▀ ▄▀█ █▀█ █▀▄▀█ ▄▀█ █▄░█ ▄▀█ █▀▀ █▀▀ █▀█
+#               █░▀█ ██▄ █▀█ █▀▄ █░▀░█ █▀█ █░▀█ █▀█ █▄█ ██▄ █▀▄
+#
+#                           (By MilkyWay for everyone)
+#
+#   ◆ Нашёл баг/ошибку/недочёт? Пиши мне об проблеме в тг - @vkusniy_milkyway
+#   ◆ Поддержи, пожалуйста, плагин оценкой и подпишись на мой тгк - @GornaSquadd
+#                           Мне будет очень приятно :)
+#
+
+settings:
+
+  # Настройка логирования действий
+  console-logs:
+    # Включить красивые логи работы плагина в консоль? (true/false)
+    # (Ошибки конфигурации и безопасности будут выводиться всегда)
+    enabled: false
+
+  # Настройка стандартного радиуса поиска
+  default-radius-without-permission:
+    # Дистанция по умолчанию, если у игрока нет особых прав или групп радиуса
+    radius: 100
+
+  # Ограничение частоты использования команды
+  near-cooldown:
+    # Включить задержку на повторное использование команды /near? (true/false)
+    enabled: true
+    # Время задержки (в секундах)
+    time: 5
+
+  # Фильтрация скрытых игроков
+  hide-vanished-players:
+    # Скрывать ли игроков в режиме невидимости (Vanish, Essentials, CMI) от обычных пользователей? (true/false)
+    # (Игроки с правом nearmanager.near.bypass-vanish всё равно увидят их)
+    enabled: true
+
+  # Список полностью игнорируемых пользователей
+  ignored-players:
+    # Включить список игроков, которых плагин никогда не будет находить? (true/false)
+    enabled: false
+    # Никнеймы полностью невидимых для плагина игроков
+    players:
+      - "Player1"
+      - "Player2"
+
+  # Динамические радиусы по группам прав
+  # (Интеграция с системой LuckPerms для выдачи донатерам больших радиусов)
+  near-radius-groups:
+    # Включить проверку групп радиусов из LuckPerms? (true/false)
+    enabled: true
+    # Списки групп и их максимальные радиусы сканирования окружения
+    groups:
+      default: 200
+      vip: 300
+      admin: 1000
+
+  # Кастомный выбор дистанции в команде
+  custom-radius-selection:
+    # Разрешить ли игрокам вручную указывать радиус через /near <Радиус>? (true/false)
+    # (Требуется наличие права nearmanager.near.custom-radius)
+    enabled: true
+    # Минимально возможный кастомный радиус
+    min-radius: 0
+    # Максимально возможный кастомный радиус
+    max-radius: 100000
+
+  # Оптимизация нагрузки при большом количестве целей
+  max-players-in-radius:
+    # Ограничивать ли вывод, если в радиусе находится слишком много людей? (true/false)
+    # (Помогает избежать спама в чат и просадок производительности клиента)
+    enabled: true
+    # Максимальное количество игроков, выше которого выполнение команды прервётся ошибкой
+    max: 10
+
+  # Автоматическая система проверки обновлений
+  update-checker:
+    # Включить проверку новых версий плагина на GitHub? (true/false)
+    enabled: true
+    # Режим отправки уведомлений о выходе обновлений
+    # Доступные варианты:
+    #   on-start — выводить информацию только в консоль при запуске сервера
+    #   on-join — показывать уведомление только администраторам при входе на сервер
+    #   periodic — регулярно отправлять логи через определённый интервал
+    #   both — отправлять уведомления и при входе, и периодически в фоне
+    notify-mode: "both"
+    # Интервал периодической проверки версий (работает для режимов periodic и both в часах)
+    periodic-interval-hours: 6
+
+  # Полноценный движок отслеживания целей с помощью боссбара
+  bossbar:
+    # Включить систему отслеживания игроков через BossBar? (true/false)
+    enabled: true
+    # Цвет полосы боссбара
+    # (Доступные цвета: PINK, BLUE, RED, GREEN, YELLOW, PURPLE, WHITE)
+    color: YELLOW
+    # Визуальный стиль разделения полосы боссбара
+    # (Доступные стили: PROGRESS, NOTCHED_6, NOTCHED_10, NOTCHED_12, NOTCHED_20)
+    style: NOTCHED_6
+    # Текст внутри полосы боссбара (Поддерживает HEX цвета, MiniMessage и плейсхолдеры)
+    text: "&#FFFF00◆ &fИгрок &#FFFF00{player} &fнаходится в &#FFFF00{distance} &f{blocks-word-format} &#FFFF00({direction})"
+    # Частота обновления данных в боссбаре (в тиках)
+    # (Рекомендуется ставить "5" тиков для хорошей производительности)
+    update-interval: 5
+    # Минимальная дистанция для работы трекера
+    min-distance:
+      # Отключать ли боссбар, если вы подошли к цели слишком близко? (true/false)
+      enabled: true
+      # Дистанция приближения, при которой боссбар автоматически исчезнет
+      distance: 15
+    # Максимальная дистанция для работы трекера
+    max-distance:
+      # Отключать ли боссбар, если цель убежала слишком далеко? (true/false)
+      enabled: true
+      # Дистанция удаления, при которой боссбар автоматически исчезнет
+      distance: 150
+    # Автоматический таймаут трекера по времени
+    timeout:
+      # Отключать ли боссбар по истечении фиксированного времени? (true/false)
+      # (Защищает от вечного удержания полосы на экране без флага -notime)
+      enabled: true
+      # Время работы боссбара с момента активации команды (в секундах)
+      time: 120
+    # Визуальное заполнение полосы боссбара
+    progress:
+      # Включить динамическое изменение длины полосы боссбара? (true/false)
+      enabled: true
+      # Режим расчёта заполнения полосы
+      # Доступные варианты:
+      #   distance — длина полосы зависит от расстояния между вами и целью
+      #   time — длина полосы плавно убывает по мере истечения таймаута времени
+      mode: "distance"
+      # Минимальное значение прогресса на полосе (в процентах от 0 до 100)
+      min-progress: 0
+      # Максимальное значение прогресса на полосе (в процентах от 0 до 100)
+      max-progress: 100
+      # Считать ли минимальную дистанцию (min-distance) за полное обнуление полосы? (true/false)
+      use-min-distance-as-zero: true
+
+  # Конфигурация стрелочек сторон света
+  # (Стрелки динамически вычисляются относительно направления взгляда игрока)
+  directions:
+    north: "⬆"
+    northeast: "⬈"
+    east: "➡"
+    southeast: "⬊"
+    south: "⬇"
+    southwest: "⬋"
+    west: "⬅"
+    northwest: "⬉"
+
+  # Склонения числительных для красивого отображения расстояний
+  block-declension:
+    # Вариант для чисел, оканчивающихся на 1 (например: 1 блоке, 21 блоке)
+    one: "блоке"
+    # Вариант для всех остальных чисел (например: 5 блоках, 5 блоках)
+    other: "блоках"
+
+  # Стилизация форматирования больших числовых значений
+  number-format:
+    # Доступные стили:
+    #   comma — разделение запятыми (например: "1,500")
+    #   dot — разделение точками (например: "1.500")
+    #   space — разделение пробелами (например: "1 500")
+    #   decimal — вывод с плавающей точкой до сотых (например: "1500.00")
+    style: "comma"
+
+# Действия для текстовых сообщений и триггеров плагина
+#
+# Доступные типы скриптов-экшенов:
+#   [message] <Текст> — Отправляет текстовое сообщение игроку в чат
+#   [message-console] <Текст> — Выводит сообщение в системную консоль сервера
+#   [broadcast] <Текст> — Отправляет объявление в чат абсолютно всем онлайн-игрокам
+#   [sound] <Звук> [Громкость] [Питч] — Проигрывает стандартный звук из майнкрафта
+#   [title] <Заголовок>;[Подзаголовок];[Появление];[Статика] — Показывает большой тайтл на экран (в тиках)
+#   [subtitle] <Подзаголовок>;[Заголовок];[Появление];[Статика] — Показывает сабтайтл на экран (в тиках)
+#   [actionbar] <Текст> — Показывает всплывающий текст над панелью предметов игрока
+#   [console-command] <Команда> — Выполняет системную команду от имени консоли сервера
+#   [player-command] <Команда> — Принудительно заставляет игрока выполнить команду от своего имени
+#
+actions:
+  errors:
+    no-permission:
+      - "[message] &#FB8808▶ &fНедостаточно &#FB8808прав на использование &fэтой команды!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    no-console:
+      - "[message] &#FB8808▶ Стоп! Вы &#FB8808не можете &fпрописать эту команду из консоли!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    player-not-found:
+      - "[message] &#FB8808▶ Ошибочка! &fИгрок &#FB8808{player} &fне найден!"
+
+  near:
+    no-players:
+      - "[message] &#FB8808◆ Ошибочка! &fПо близости вас &#FB8808нету &fигроков..."
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    near:
+      - "[message] "
+      - "[message] &#FFFF00◆ &fИгроки в радиусе &#FFFF00{radius} &f{blocks-word-format} от вас:"
+      - "[message] "
+      - "[message]  {near-players}"
+      - "[message] "
+      - "[sound] ENTITY_EXPERIENCE_ORB_PICKUP 1 1"
+    near-players: "&#FFFF00◆ &f{number}. &#FFFF00{player} &f- в &#FFFF00{blocks} &f{blocks-word-format} &#FFFF00({direction}) {bossbar-button} {open-inventory-button} {teleport-button}"
+    # Настройка интерактивной кнопки открытия инвентаря цели
+    open-inventory-button:
+      permission: "nearmanager.near-buttons.open-inventory"
+      text: "&#FFFF00[Инв]"
+      hover-text: "&#FFFF00◆ &fНажмите, чтобы &#FFFF00открыть &fинвентарь игрока"
+      click-command: "/invsee {player}"
+    # Настройка интерактивной кнопки телепортации к цели
+    teleport-button:
+      permission: "nearmanager.near-buttons.teleport"
+      text: "&#FFFF00[Тп]"
+      hover-text: "&#FFFF00◆ &fНажмите, чтобы &#FFFF00телепортироваться &fк игроку"
+      click-command: "/tp {player}"
+    # Настройка интерактивной кнопки запуска слежения через боссбар
+    bossbar-button:
+      permission: "nearmanager.near-buttons.bossbar"
+      text: "&f|  &#FFFF00[Боссбар]"
+      hover-text: "&#FFFF00◆ &fНажмите, чтобы &#FFFF00активировать &fбоссбар"
+      click-command: "/nm bossbar {player} on -button"
+    too-many-players:
+      - "[message] &#FB8808◆ &fВ вашем радиусе &#FB8808слишком &fмного игроков..."
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    invalid-radius:
+      - "[message] &#FB8808◆ Стоп! &fВведите &#FB8808корректное &fчисло для радиуса!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    cooldown:
+      - "[message] &#FB8808◆ Стоп! &fПодождите &#FB8808{time} сек.&f, чтобы использовать команду снова!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    invalid-max-radius:
+      - "[message] &#FB8808◆ Стоп! &fМаксимальный радиус для неара &#FB8808{max-radius} &fблоков!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    invalid-min-radius:
+      - "[message] &#FB8808◆ Стоп! &fМинимальный радиус для неара &#FB8808{min-radius} &fблоков!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    no-custom-radius-permission:
+      - "[message] &#FB8808◆ Стоп! &fУ тебя &#FB8808нет прав &fна указание кастомного радиуса!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+
+  bossbar:
+    already-active:
+      - "[message] &#FB8808◆ Ошибочка! &fУ вас &#FB8808уже есть &fактивный боссбар!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    player-not-found:
+      - "[message] &#FB8808◆ Ошибочка! &fИгрок &#FB8808{player} &fне найден!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    self-target:
+      - "[message] &#FB8808◆ &fВы &#FB8808не можете &fактивировать боссбар на самого себя!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    activated:
+      - "[message] &#FFFF00◆ &fБоссбар на игрока &#FFFF00{player} &fвключён!"
+      - "[sound] ENTITY_EXPERIENCE_ORB_PICKUP 1 1"
+    turned-off:
+      - "[message] &#FFFF00◆ &fБоссбар на игрока &#FFFF00{player} &fвыключен!"
+      - "[sound] BLOCK_NOTE_BLOCK_HAT 1 1"
+    already-off:
+      - "[message] &#FB8808◆ &fБоссбар на игрока &#FB8808{player} &fуже выключен!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    timeout:
+      - "[message] &#FB8808◆ &fБоссбар на игрока &#FB8808{player} &fисчез, так как время вышло..."
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    gone-close:
+      - "[message] &#FB8808◆ &fБоссбар &#FB8808исчез&f, вы подошли &#FB8808слишком близко &fк игроку..."
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    gone-far:
+      - "[message] &#FB8808◆ &fБоссбар &#FB8808исчез&f, вы отошли &#FB8808слишком далеко &fот игрока..."
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    player-offline:
+      - "[message] &#FB8808◆ &fБоссбар исчез, так как игрок &#FB8808{player} &fвышел из сети..."
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    player-changed-world:
+      - "[message] &#FB8808◆ &fБоссбар исчез, так как игрок &#FB8808{player} &fпереместился в другой мир..."
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    too-close-to-activate:
+      - "[message] &#FB8808◆ &fВы &#FB8808не можете &fактивировать боссбар, находясь &#FB8808так близко &fк игроку!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    too-far-to-activate:
+      - "[message] &#FB8808◆ &fВы &#FB8808не можете &fактивировать боссбар, находясь &#FB8808так далеко &fот игрока!"
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+    too-far:
+      - "[message] &#FB8808◆ &fИгрок &#FB8808{player} &fслишком далеко от вас..."
+      - "[sound] BLOCK_ANVIL_LAND 1 1"
+
+  plugin:
+    reload:
+      - "[message] <gradient:#FFFF00:#ffa500>◆ NearManager</gradient> &f┃ Плагин &#FFFF00успешно &fперезагружен за &#FFFF00{time} мс."
+      - "[sound] ENTITY_PLAYER_LEVELUP 1 1"
+
+  help-for-admins:
+    - "[message] "
+    - "[message] &#FFFF00▶ &fКоманды плагина:"
+    - "[message] "
+    - "[message]    &#FFFF00◆ /near (Радиус) &f- Просмотр игроков по близости"
+    - "[message]    &#FFFF00◆ /nm reload &f- Перезагрузить плагин"
+    - "[message]    &#FFFF00◆ /nm bossbar <Никнейм> (on/off) (-nodist/-notime) &f- Активировать боссбар"
+    - "[message] "
+    - "[sound] BLOCK_LEVER_CLICK 1 1"

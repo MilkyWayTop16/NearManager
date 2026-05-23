@@ -1,0 +1,38 @@
+name: NearManager
+version: 2.0
+main: org.gw.nearmanager.NearManager
+api-version: 1.16
+depend: [LuckPerms]
+softdepend: [Essentials, CMI]
+author: vkusniy_milkyway
+
+commands:
+  near:
+    usage: /<command> <Радиус>
+    permission: nearmanager.near
+  nm:
+    usage: /<command> (reload/bossbar <Никнейм> (on/off))
+
+permissions:
+  nearmanager.near:
+    default: op
+  nearmanager.reload:
+    default: op
+  nearmanager.bossbar:
+    default: op
+  nearmanager.near-radius.100:
+    default: false
+  nearmanager.near.custom-radius:
+    default: op
+  nearmanager.near-buttons.open-inventory:
+    default: op
+  nearmanager.near-buttons.teleport:
+    default: op
+  nearmanager.near-buttons.bossbar:
+    default: op
+  nearmanager.near.bypass-cooldown:
+    default: op
+  nearmanager.near.bypass-vanish:
+    default: op
+  nearmanager.near.bossbar.nodist:
+    default: op
