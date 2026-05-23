@@ -72,6 +72,7 @@ public final class ConfigManager {
     private String numberFormatStyle;
     private String blockDeclensionOne;
     private String blockDeclensionOther;
+    private boolean bStatsEnabled;
 
     private transient ThreadLocal<java.text.DecimalFormat> activeFormatter;
 
@@ -157,6 +158,7 @@ public final class ConfigManager {
     }
 
     private void cacheHotSettings() {
+        bStatsEnabled = config.getBoolean("bstats.enabled", true);
         defaultRadius = config.getInt("settings.default-radius-without-permission.radius", 100);
 
         nearCooldownEnabled = config.getBoolean("settings.near-cooldown.enabled", true);
@@ -244,21 +246,21 @@ public final class ConfigManager {
             activeFormatter = null;
         }
 
-        plugin.log("Успешно загружено " + nearRadiusGroups.size() + " групп радиусов");
+        plugin.log("Успешно загружено &#FFFF00" + nearRadiusGroups.size() + " &fгрупп радиусов!");
     }
 
     private void validateBossBarEnums() {
         try {
             bossBarColorEnum = BossBar.Color.valueOf(bossBarColor.toUpperCase());
         } catch (IllegalArgumentException e) {
-            plugin.error("Некорректный цвет боссбара в config.yml: " + bossBarColor + ", используется YELLOW по умолчанию");
+            plugin.error("Некорректный цвет боссбара в config.yml: " + bossBarColor + ", используется YELLOW по умолчанию...");
             bossBarColorEnum = BossBar.Color.YELLOW;
         }
 
         try {
             bossBarOverlayEnum = BossBar.Overlay.valueOf(bossBarStyle.toUpperCase());
         } catch (IllegalArgumentException e) {
-            plugin.error("Некорректный стиль боссбара в config.yml: " + bossBarStyle + ", используется NOTCHED_6 по умолчанию");
+            plugin.error("Некорректный стиль боссбара в config.yml: " + bossBarStyle + ", используется NOTCHED_6 по умолчанию...");
             bossBarOverlayEnum = BossBar.Overlay.NOTCHED_6;
         }
     }

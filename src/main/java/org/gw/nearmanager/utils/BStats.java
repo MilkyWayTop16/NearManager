@@ -7,11 +7,12 @@ public class BStats {
 
     public BStats(NearManager plugin) {
         if (plugin == null) return;
+        if (!plugin.getConfigManager().isBStatsEnabled()) return;
 
         try {
             new Metrics(plugin, 31103);
         } catch (Exception e) {
-            plugin.error("Ошибка инициализации метрик bStats: &#fb8808" + e.getMessage());
+            plugin.error("Ошибка инициализации метрик bStats: " + e.getMessage());
         }
     }
 }
