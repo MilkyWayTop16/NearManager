@@ -3,13 +3,12 @@ version: 2.0
 main: org.gw.nearmanager.NearManager
 api-version: 1.16
 depend: [LuckPerms]
-softdepend: [Essentials, CMI]
+softdepend: [Essentials, CMI, PlaceholderAPI]
 author: vkusniy_milkyway
 
 commands:
   near:
     usage: /<command> <Радиус>
-    permission: nearmanager.near
   nm:
     usage: /<command> (reload/bossbar <Никнейм> (on/off))
 
@@ -35,4 +34,6 @@ permissions:
   nearmanager.near.bypass-vanish:
     default: op
   nearmanager.near.bossbar.nodist:
+    default: op
+  nearmanager.near.bossbar.notime:
     default: op

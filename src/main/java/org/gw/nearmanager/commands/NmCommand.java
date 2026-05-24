@@ -132,6 +132,11 @@ public final class NmCommand implements CommandExecutor {
                 return true;
             }
 
+            if (notime && sender instanceof Player viewer && !viewer.hasPermission("nearmanager.near.bossbar.notime")) {
+                configManager.executeActions(viewer, "errors.no-permission", null);
+                return true;
+            }
+
             if (sender instanceof Player viewer) {
                 if (!nodist && configManager.isBossBarMinDistanceEnabled()) {
                     double distance = viewer.getLocation().distance(target.getLocation());
